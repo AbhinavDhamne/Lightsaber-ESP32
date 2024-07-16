@@ -1,9 +1,8 @@
 #include "mpu6050.h"
 static const char *TAG = "MPU6050";
 
-
-static float get_accel_sensitivity(mpu6050_accel_config_t );
-static float get_gyro_sensitivity(mpu6050_gyro_config_t );
+static float get_accel_sensitivity(mpu6050_accel_config_t);
+static float get_gyro_sensitivity(mpu6050_gyro_config_t);
 
 esp_err_t mpu6050_read_register(uint8_t reg_addr, uint8_t *data)
 {
@@ -219,6 +218,7 @@ esp_err_t mpu6050_read_data(mpu6050_data_t *data, const mpu6050_config_t *config
 
     return ESP_OK;
 }
+
 static float get_accel_sensitivity(mpu6050_accel_config_t config)
 {
     // Define sensitivity values based on full scale range

@@ -44,6 +44,7 @@ void app_main(void)
     } else {
         ESP_LOGI("main", "MPU6050 initialized successfully");
         // Continue with MPU6050 operations
+        
     }
 
 
