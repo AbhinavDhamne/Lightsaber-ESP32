@@ -44,7 +44,7 @@ void app_main(void)
     } else {
         ESP_LOGI("main", "MPU6050 initialized successfully");
         // Continue with MPU6050 operations
-        
+
     }
 
 
@@ -55,8 +55,6 @@ void app_main(void)
 
         printf("Raw Accel: X=%d, Y=%d, Z=%d\n", data.acc_x_raw, data.acc_y_raw, data.acc_z_raw);
         printf("Accel: X=%.2f g, Y=%.2f g, Z=%.2f g\n", data.acc_x, data.acc_y, data.acc_z);
-
-        // ... print other data as needed
 
         vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay for 1 second
     }

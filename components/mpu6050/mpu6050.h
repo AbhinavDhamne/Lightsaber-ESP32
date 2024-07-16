@@ -389,6 +389,11 @@
 #define MPU6050_DMP_MEMORY_BANK_SIZE 256
 #define MPU6050_DMP_MEMORY_CHUNK_SIZE 16
 
+
+
+/**
+ * @brief Enum for MPU6050 sample rate divider configurations
+ */
 typedef enum
 {
     // Sample rate divider values based on gyroscope output rate (8kHz) and desired sample rate
@@ -405,6 +410,11 @@ typedef enum
     // ... other sample rate divider values for 1kHz gyroscope output rate
 } mpu6050_sample_rate_div_t;
 
+
+
+/**
+ * @brief Enum for MPU6050 low pass filter configurations
+ */
 typedef enum
 {
     MPU6050_LPF_CONFIG_260HZ = 0x00, // Digital low-pass filter bandwidth 260 Hz
@@ -416,8 +426,10 @@ typedef enum
     MPU6050_LPF_CONFIG_5HZ = 0x06    // Digital low-pass filter bandwidth 5 Hz
 } mpu6050_lpf_config_t;
 
-// ... similar enums for gyro_config and accel_config
 
+/**
+ * @brief Enum for MPU6050 gyroscope full scale range configurations
+ */
 typedef enum
 {
     MPU6050_GYRO_FS_250DPS = 0x00,  // ± 250 degrees/second
@@ -426,6 +438,11 @@ typedef enum
     MPU6050_GYRO_FS_2000DPS = 0x18  // ± 2000 degrees/second
 } mpu6050_gyro_config_t;
 
+
+
+/**
+ * @brief Enum for MPU6050 accelerometer full scale range configurations
+ */
 typedef enum
 {
     MPU6050_ACCEL_FS_2G = 0x00, // ± 2g
@@ -434,6 +451,11 @@ typedef enum
     MPU6050_ACCEL_FS_16G = 0x18 // ± 16g
 } mpu6050_accel_config_t;
 
+
+
+/**
+ * @brief Structure to hold MPU6050 configuration parameters
+ */
 typedef struct
 {
     mpu6050_sample_rate_div_t sample_rate_divider;
@@ -442,8 +464,10 @@ typedef struct
     mpu6050_accel_config_t accel_config;
 } mpu6050_config_t;
 
-#include <stdint.h>
 
+/**
+ * @brief Structure to hold MPU6050 sensor data
+ */
 typedef struct
 {
     // Raw sensor data

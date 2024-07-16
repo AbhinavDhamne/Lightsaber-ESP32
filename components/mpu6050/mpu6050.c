@@ -4,6 +4,13 @@ static const char *TAG = "MPU6050";
 static float get_accel_sensitivity(mpu6050_accel_config_t);
 static float get_gyro_sensitivity(mpu6050_gyro_config_t);
 
+/**
+ * @brief Reads a byte from the specified register of the MPU6050
+ *
+ * @param reg_addr Register address
+ * @param data Pointer to store the read data
+ * @return ESP_OK on success, ESP_FAIL on error
+ */
 esp_err_t mpu6050_read_register(uint8_t reg_addr, uint8_t *data)
 {
     i2c_cmd_handle_t cmd_handle = i2c_cmd_link_create();
@@ -40,6 +47,13 @@ esp_err_t mpu6050_read_register(uint8_t reg_addr, uint8_t *data)
     return ESP_OK;
 }
 
+/**
+ * @brief Writes a byte to the specified register of the MPU6050
+ *
+ * @param reg_addr Register address
+ * @param data Data to write
+ * @return ESP_OK on success, ESP_FAIL on error
+ */
 esp_err_t mpu6050_write_register(uint8_t reg_addr, uint8_t data)
 {
     i2c_cmd_handle_t cmd_handle = i2c_cmd_link_create();
@@ -62,6 +76,11 @@ esp_err_t mpu6050_write_register(uint8_t reg_addr, uint8_t data)
     return ESP_OK;
 }
 
+/**
+ * @brief Verifies the connection to the MPU6050
+ *
+ * @return ESP_OK on success, ESP_FAIL on error
+ */
 esp_err_t mpu6050_verify_connection()
 {
     uint8_t who_am_i_data;
@@ -86,7 +105,16 @@ esp_err_t mpu6050_verify_connection()
     }
 }
 
-esp_err_t mpu6050_init(const mpu6050_config_t *config){
+
+
+/**
+ * @brief Initializes the MPU6050 with the given configuration
+ *
+ * @param config Pointer to the MPU6050 configuration structure
+ * @return ESP_OK on success, ESP_FAIL on error
+ */
+esp_err_t mpu6050_init(const mpu6050_config_t *config)
+{
     esp_err_t ret;
 
     ret = mpu6050_verify_connection();
@@ -138,6 +166,14 @@ esp_err_t mpu6050_init(const mpu6050_config_t *config){
     return ESP_OK;
 }
 
+
+/**
+ * @brief Reads raw data from the MPU6050 and converts it to calibrated values
+ *
+ * @param data Pointer to the data structure to store the read data
+ * @param config Pointer to the MPU6050 configuration structure
+ * @return ESP_OK on success, ESP_FAIL on error
+ */
 esp_err_t mpu6050_read_data(mpu6050_data_t *data, const mpu6050_config_t *config)
 {
     uint8_t reg_data_h, reg_data_l;
@@ -219,6 +255,13 @@ esp_err_t mpu6050_read_data(mpu6050_data_t *data, const mpu6050_config_t *config
     return ESP_OK;
 }
 
+
+/**
+ * @brief Calculates the accelerometer sensitivity based on the full scale range configuration
+ *
+ * @param config Accelerometer full scale range configuration
+ * @return Accelerometer sensitivity factor
+ */
 static float get_accel_sensitivity(mpu6050_accel_config_t config)
 {
     // Define sensitivity values based on full scale range
@@ -226,6 +269,15 @@ static float get_accel_sensitivity(mpu6050_accel_config_t config)
     return sensitivity_factors[config];
 }
 
+
+
+
+/**
+ * @brief Calculates the gyroscope sensitivity based on the full scale range configuration
+ *
+ * @param config Gyroscope full scale range configuration
+ * @return Gyroscope sensitivity factor
+ */
 static float get_gyro_sensitivity(mpu6050_gyro_config_t config)
 {
     // Define sensitivity values based on full scale range
