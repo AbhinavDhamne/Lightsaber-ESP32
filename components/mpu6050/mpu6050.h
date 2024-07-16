@@ -398,33 +398,103 @@
 
 
 typedef enum {
-    // Sample rate divider values
-    MPU6050_SAMPLE_RATE_DIV_1 = 0x00,
-    MPU6050_SAMPLE_RATE_DIV_2 = 0x01,
-    // ... other sample rate divider values
+    // Sample rate divider values based on gyroscope output rate (8kHz) and desired sample rate
+    MPU6050_SAMPLE_RATE_DIV_8KHZ = 0x00,  // Sample rate = 8kHz
+    MPU6050_SAMPLE_RATE_DIV_4KHZ = 0x01,  // Sample rate = 4kHz
+    MPU6050_SAMPLE_RATE_DIV_2KHZ = 0x03,  // Sample rate = 2kHz
+    MPU6050_SAMPLE_RATE_DIV_1KHZ = 0x07,  // Sample rate = 1kHz
+    // ... other sample rate divider values for 8kHz gyroscope output rate
+
+    // Sample rate divider values based on gyroscope output rate (1kHz) and desired sample rate
+    MPU6050_SAMPLE_RATE_DIV_1KHZ_DLPF = 0x00,  // Sample rate = 1kHz (with DLPF enabled)
+    MPU6050_SAMPLE_RATE_DIV_500HZ_DLPF = 0x01,  // Sample rate = 500Hz (with DLPF enabled)
+    MPU6050_SAMPLE_RATE_DIV_250HZ_DLPF = 0x03,  // Sample rate = 250Hz (with DLPF enabled)
+    // ... other sample rate divider values for 1kHz gyroscope output rate
 } mpu6050_sample_rate_div_t;
 
+
 typedef enum {
-    // LPF configuration values
-    MPU6050_LPF_CONFIG_260Hz = 0x00,
-    MPU6050_LPF_CONFIG_184Hz = 0x01,
-    // ... other LPF configuration values
+    MPU6050_LPF_CONFIG_260HZ = 0x00,  // Digital low-pass filter bandwidth 260 Hz
+    MPU6050_LPF_CONFIG_184HZ = 0x01,  // Digital low-pass filter bandwidth 184 Hz
+    MPU6050_LPF_CONFIG_98HZ = 0x02,   // Digital low-pass filter bandwidth 98 Hz
+    MPU6050_LPF_CONFIG_42HZ = 0x03,   // Digital low-pass filter bandwidth 42 Hz
+    MPU6050_LPF_CONFIG_20HZ = 0x04,   // Digital low-pass filter bandwidth 20 Hz
+    MPU6050_LPF_CONFIG_10HZ = 0x05,   // Digital low-pass filter bandwidth 10 Hz
+    MPU6050_LPF_CONFIG_5HZ = 0x06    // Digital low-pass filter bandwidth 5 Hz
 } mpu6050_lpf_config_t;
 
+
 // ... similar enums for gyro_config and accel_config
+
+
+
+typedef enum {
+    MPU6050_GYRO_FS_250DPS = 0x00,  // ± 250 degrees/second
+    MPU6050_GYRO_FS_500DPS = 0x08,  // ± 500 degrees/second
+    MPU6050_GYRO_FS_1000DPS = 0x10, // ± 1000 degrees/second
+    MPU6050_GYRO_FS_2000DPS = 0x18  // ± 2000 degrees/second
+} mpu6050_gyro_config_t;
+
+
+typedef enum {
+    MPU6050_ACCEL_FS_2G = 0x00,  // ± 2g
+    MPU6050_ACCEL_FS_4G = 0x08,  // ± 4g
+    MPU6050_ACCEL_FS_8G = 0x10,  // ± 8g
+    MPU6050_ACCEL_FS_16G = 0x18  // ± 16g
+} mpu6050_accel_config_t;
+
+
 
 typedef struct {
     mpu6050_sample_rate_div_t sample_rate_divider;
     mpu6050_lpf_config_t lpf_config;
-    // ... other members
+    mpu6050_gyro_config_t gyro_config;
+    mpu6050_accel_config_t accel_config;
 } mpu6050_config_t;
+
+#include <stdint.h>
+
+typedef struct {
+    // Raw sensor data
+    int16_t acc_x_raw;
+    int16_t acc_y_raw;
+    int16_t acc_z_raw;
+    int16_t gyro_x_raw;
+    int16_t gyro_y_raw;
+    int16_t gyro_z_raw;
+    int16_t temp_raw;
+
+    // Calibrated sensor data
+    double acc_x;
+    double acc_y;
+    double acc_z;
+    double gyro_x;
+    double gyro_y;
+    double gyro_z;
+    float temperature;
+
+    // Angles
+    float roll;
+    float pitch;
+    float yaw;
+
+    // For Kalman filter (if used)
+    double kalman_angle_x;
+    double kalman_angle_y;
+    double kalman_angle_z;
+
+    // Time-related data
+    uint32_t current_time;
+    uint32_t previous_time;
+} mpu6050_data_t;
+
 
 
 esp_err_t mpu6050_read_register(uint8_t, uint8_t*) ;
 esp_err_t mpu6050_write_register(uint8_t, uint8_t );
 
 esp_err_t mpu6050_verify_connection(void);
-esp_err_t mpu6050_init(void);
+ esp_err_t mpu6050_init(const mpu6050_config_t *config) ;
 
 
 

@@ -83,52 +83,46 @@ esp_err_t mpu6050_verify_connection()
     }
 }
 
-    esp_err_t mpu6050_init()
-{
+  esp_err_t mpu6050_init(const mpu6050_config_t *config) {
     esp_err_t ret;
 
     ret = mpu6050_verify_connection();
-    if (ret != ESP_OK)
-    {
+    if (ret != ESP_OK) {
         ESP_LOGE(TAG, "Failed to verify MPU6050 connection: %s", esp_err_to_name(ret));
-        // Handle error, e.g., retry or indicate failure
-        return ret ;
+        return ret;
     }
-    ret = mpu6050_write_register(MPU6050_RA_PWR_MGMT_1, 0x00);
-    if (ret != ESP_OK)
-    {
+
+    ret = mpu6050_write_register(MPU6050_RA_PWR_MGMT_1, 0x00); // Wake up the MPU6050
+    if (ret != ESP_OK) {
         ESP_LOGE(TAG, "Error waking up MPU6050: %s", esp_err_to_name(ret));
         return ret;
     }
 
-    // Set sample rate divider (adjust as needed)
-    ret = mpu6050_write_register(MPU6050_RA_SMPLRT_DIV, 0x00); // Set to 1 kHz sample rate
-    if (ret != ESP_OK)
-    {
+
+    // Set sample rate divider
+    ret = mpu6050_write_register(MPU6050_RA_SMPLRT_DIV, (uint8_t)config->sample_rate_divider);
+    if (ret != ESP_OK) {
         ESP_LOGE(TAG, "Error setting MPU6050 sample rate divider: %s", esp_err_to_name(ret));
         return ret;
     }
 
-    // Configure LPF (adjust as needed)
-    ret = mpu6050_write_register(MPU6050_RA_CONFIG, 0x03); // Set LPF to 44Hz
-    if (ret != ESP_OK)
-    {
+    // Configure LPF
+    ret = mpu6050_write_register(MPU6050_RA_CONFIG, (uint8_t)config->lpf_config);
+    if (ret != ESP_OK) {
         ESP_LOGE(TAG, "Error configuring MPU6050 LPF: %s", esp_err_to_name(ret));
         return ret;
     }
 
-    // Set gyro sensitivity (adjust as needed)
-    ret = mpu6050_write_register(MPU6050_RA_GYRO_CONFIG, 0x08); // Set gyro full scale range to ±2000 deg/s
-    if (ret != ESP_OK)
-    {
+    // Set gyro sensitivity
+    ret = mpu6050_write_register(MPU6050_RA_GYRO_CONFIG, (uint8_t)config->gyro_config);
+    if (ret != ESP_OK) {
         ESP_LOGE(TAG, "Error setting MPU6050 gyro sensitivity: %s", esp_err_to_name(ret));
         return ret;
     }
 
-    // Set accelerometer sensitivity (adjust as needed)
-    ret = mpu6050_write_register(MPU6050_RA_ACCEL_CONFIG, 0x14); // Set accel full scale range to ±16g
-    if (ret != ESP_OK)
-    {
+    // Set accelerometer sensitivity
+    ret = mpu6050_write_register(MPU6050_RA_ACCEL_CONFIG, (uint8_t)config->accel_config);
+    if (ret != ESP_OK) {
         ESP_LOGE(TAG, "Error setting MPU6050 accelerometer sensitivity: %s", esp_err_to_name(ret));
         return ret;
     }

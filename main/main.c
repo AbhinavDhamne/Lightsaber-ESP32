@@ -108,7 +108,22 @@ void app_main(void)
     i2c_param_config(I2C_NUM_0, &i2c_config);
     i2c_driver_install(I2C_NUM_0, I2C_MODE_MASTER, 0, 0, 0);
 
-   esp_err_t err =  mpu6050_init();
+   mpu6050_config_t config = {
+        .sample_rate_divider = MPU6050_SAMPLE_RATE_DIV_1KHZ,  // Example configuration
+        .lpf_config = MPU6050_LPF_CONFIG_42HZ,
+        .gyro_config = MPU6050_GYRO_FS_2000DPS,
+        .accel_config = MPU6050_ACCEL_FS_16G
+    };
+
+    // Initialize the MPU6050
+    esp_err_t ret = mpu6050_init(&config);
+    if (ret != ESP_OK) {
+        ESP_LOGE("main", "Failed to initialize MPU6050: %s", esp_err_to_name(ret));
+        // Handle error
+    } else {
+        ESP_LOGI("main", "MPU6050 initialized successfully");
+        // Continue with MPU6050 operations
+    }
 }
 /*
 
