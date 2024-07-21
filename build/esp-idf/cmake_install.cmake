@@ -412,3 +412,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/mpu6050/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/vib_motor/cmake_install.cmake")
+endif()
+

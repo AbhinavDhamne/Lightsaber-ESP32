@@ -628,3 +628,10 @@ E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/mpu6050/CMakeFiles/list_in
 E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/mpu6050/CMakeFiles/install.dir
 E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/mpu6050/CMakeFiles/install/local.dir
 E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/mpu6050/CMakeFiles/install/strip.dir
+E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/vib_motor/CMakeFiles/__idf_vib_motor.dir
+E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/vib_motor/CMakeFiles/edit_cache.dir
+E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/vib_motor/CMakeFiles/rebuild_cache.dir
+E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/vib_motor/CMakeFiles/list_install_components.dir
+E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/vib_motor/CMakeFiles/install.dir
+E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/vib_motor/CMakeFiles/install/local.dir
+E:/Abhinav/SuperSaber/LightsaberMPU6050/build/esp-idf/vib_motor/CMakeFiles/install/strip.dir

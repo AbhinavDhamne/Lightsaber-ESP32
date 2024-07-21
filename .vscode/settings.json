@@ -16,6 +16,7 @@
     "idf.flashType": "UART",
     "idf.portWin": "COM3",
     "files.associations": {
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "ledc.h": "c"
     }
 }
